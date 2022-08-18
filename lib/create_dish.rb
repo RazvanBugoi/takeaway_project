@@ -26,4 +26,8 @@ class CreateDish
     def available?
         availability
     end
+
+    def to_hash
+        instance_variables.map{ |v| Hash[v.to_s.delete("@").to_sym, instance_variable_get(v)] }.inject(:merge)
+    end
 end
