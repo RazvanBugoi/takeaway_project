@@ -21,11 +21,26 @@ class Dishes
 
     def place_order(*args)
         @args = *args
+        available_dish_titles = ""
 
-        items_available = @args.all? do |element|
-            @available_dishes.all? { |element| element[:availability] == true }
+        available.each { |el| available_dish_titles << el[:title] }
+        ordered = @args.all? { |dish| available_dish_titles.include?(dish) }
+        # binding.irb
+        fail "You cannot order an unavailable dish." if ordered == false
+        return "Your order has been placed."
+    end
+
+    def print_receipt
+        @available_dishes.keep_if do |hash|
+            @args.include?(hash[:title])
         end
 
-        return "Your order has been placed." if items_available
+        receipt = @available_dishes.map do |hash|
+            "#{hash[:title]}: £#{hash[:price]}\n"
+        end
+
+        total = " TOTAL: £#{ @available_dishes.map { |el| el[:price] }.sum }"
+
+        return receipt.join(" ").concat(total)
     end
 end
