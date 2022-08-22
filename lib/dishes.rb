@@ -1,3 +1,5 @@
+# this class is meant to store instances of CreateDish class and also handle the methods related to placing an order.
+
 class Dishes
     def initialize
         @all_dishes = []

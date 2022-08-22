@@ -1,3 +1,5 @@
+# this class is meant to create individual dishes
+
 class CreateDish
     def initialize(title, price, availability)
         @title = title
